@@ -11,10 +11,16 @@ const validator = require('validator');
 //use email validator;
 
 var Users= mongoose.model('Users', {
+    text:{
+        type:String,
+
+        required: true,
+
+    },
 
 
     email: {
-        require: false,
+        required : true,
         trim: true,
         type: String,
         minlength: 1,
@@ -27,7 +33,7 @@ var Users= mongoose.model('Users', {
     },
     password: {
         type: String,
-        require: false,
+        default: false,
         minlength: 6,
 
     },
