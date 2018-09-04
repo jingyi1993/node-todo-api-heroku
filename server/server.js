@@ -36,7 +36,7 @@ const port = process.env.PORT || 3000;
 
  });
 
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // app.post('/todo',(req, res)=>{
@@ -97,6 +97,21 @@ app.post('/users', (req,res)=>{
 //     });
 // });
 
+
+app.get('/users/me', (req, res)=>{
+    //the key is x-auth;
+    var token = req.header('x-auth');
+
+    Users.findByToken(token).then((user)=>{
+        if(!user){
+            return Promise.reject();
+        }
+        res.send(user);
+    }).catch((e)=>{
+        res.status(401).send(e);
+    })
+
+})
 
 app.get('/todos',(req, res)=>{
     Users.find().then((todos)=>{
