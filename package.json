@@ -7,6 +7,7 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "mongodb": "^2.2.33",
     "mongoose": "^4.5.9",
@@ -24,7 +25,7 @@
     "url": "git+https://github.com/jingyi1993/node-todo-api.git"
   },
   "engines": {
-    "node":"8.11.3"
+    "node": "8.11.3"
   },
   "author": "",
   "license": "ISC",

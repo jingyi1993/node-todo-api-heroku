@@ -66,25 +66,41 @@ app.post('/todos', (req, res) => {
         res.status(400).send(e);
     });
 });
+//post email and password
 
-app.post('/users', (req, res) => {
+app.post('/users', (req,res)=>{
+    var info = _.pick(req.body, ['email', 'password']);
+    var user = new Users(info);
 
-    var hii = new Users({
-        email: req.body.text
-    });
-
-    hii.save().then((doc) => {
-        res.send(doc);
-    }, (e) => {
+    user.save().then((user)=>{
+        user.generateAuthToken();
+    })
+        .then((token)=>{
+        res.header('x-auth', token).send(user)
+    })
+        .catch((e)=>{
         res.status(400).send(e);
-    });
+    })
+
 });
+
+// app.post('/users', (req, res) => {
+//
+//     var hii = new Users({
+//         email: req.body.email
+//     });
+//
+//     hii.save().then((doc) => {
+//         res.send(doc);
+//     }, (e) => {
+//         res.status(400).send(e);
+//     });
+// });
 
 
 app.get('/todos',(req, res)=>{
     Users.find().then((todos)=>{
-        console.log(todos);
-        res.send({
+        console.log(todos);res.send({
             todos,
             code:'abc'});
     },(e)=>{
